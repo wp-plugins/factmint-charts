@@ -3,8 +3,8 @@
  * Plugin Name: Factmint Charts
  * Plugin URI: http://factmint.com/blog/create-a-chart-in-wordpress
  * Description: A shortcode for publishing Factmint Charts
- * Version: 0.0.2
- * Author: chris.scott@fatmint.com
+ * Version: 0.0.3
+ * Author: chris.scott@factmint.com
  * License: MIT
  */
 
@@ -12,7 +12,9 @@ defined( 'ABSPATH' ) or die();
 
 function csv_to_data($csv) {
 	$table = Array();
-	$rows = explode("\n", str_replace(["<br />", "<br/>", "<br>"], ["", "", ""], $csv));
+
+	$cleanCsv = strip_tags($csv);
+	$rows = explode("\n", $cleanCsv);
 
 	foreach ($rows as $row) {
 		if ($row != "") {
@@ -36,7 +38,7 @@ function generate_html_table($table, $chartName, $options) {
 
 	$headerRow = array_shift($table);
 	foreach ($headerRow as $cell) {
-		$html .= "<th>$cell</th>\n";
+		$html .= "<th>" . preg_replace("/^[^(\x20-\x7F)]*/", "", $cell) . "</th>\n";
 	}
 
 	$html .= "</tr></thead>\n";
@@ -46,7 +48,7 @@ function generate_html_table($table, $chartName, $options) {
 	foreach ($table as $row) {
 		$html .= "<tr>\n";
 		foreach ($row as $cell) {
-			$html .= "<td>" . preg_replace("/^ +/", "", $cell) . "</td>\n";
+			$html .= "<td>" . preg_replace("/^[^(\x20-\x7F)]*/", "", $cell) . "</td>\n";
 		}
 		$html .= "</tr>\n";
 	}
