@@ -3,7 +3,7 @@
  * Plugin Name: Factmint Charts
  * Plugin URI: http://factmint.com/blog/create-a-chart-in-wordpress
  * Description: A shortcode for publishing Factmint Charts
- * Version: 0.0.4
+ * Version: 0.0.5
  * Author: chris.scott@factmint.com
  * License: MIT
  */
@@ -28,8 +28,8 @@ function csv_to_data($csv) {
 function generate_html_table($table, $chartName, $options) {
 	$html = "<table class=\"fm-$chartName\"";
 
-	foreach ($options as $key => $value) {
-		$html .= " data-fm-$key=\"$value\"";
+	foreach ($options as $option) {
+		$html .= " data-fm-$option";
 	}
 
 	$html .= ">\n";
