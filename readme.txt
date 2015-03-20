@@ -27,7 +27,6 @@ IMPORTANT: Factmint Charts will add a small "Powered by Factmint" link below eac
 
 Example usage:
 
-`
 [factmint-pie]
 Country, Population
 UK, 70000000
