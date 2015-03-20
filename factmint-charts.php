@@ -3,7 +3,7 @@
  * Plugin Name: Factmint Charts
  * Plugin URI: http://factmint.com/blog/create-a-chart-in-wordpress
  * Description: A shortcode for publishing Factmint Charts
- * Version: 0.0.3
+ * Version: 0.0.4
  * Author: chris.scott@factmint.com
  * License: MIT
  */
@@ -67,10 +67,11 @@ function factmintchart_func($attributes, $content, $name){
 
 	wp_enqueue_style("factmint-$name-style", "http://factmint.io/$name.css");
 
-	echo generate_html_table($table, $name, $attributes);
-
 	wp_enqueue_script("factmint-$name-renderer", "http://factmint.io/$name.js");
+
+	return generate_html_table($table, $name, $attributes);
 }
+
 add_shortcode( 'factmint-pie', 'factmintchart_func' );
 add_shortcode( 'factmint-doughnut', 'factmintchart_func' );
 add_shortcode( 'factmint-line', 'factmintchart_func' );
